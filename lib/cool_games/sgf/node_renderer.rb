@@ -1,4 +1,4 @@
-module Gocool
+module CoolGames
   module SGF
     class NodeRenderer < Renderer
       def initialize options = {}

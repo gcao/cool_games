@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
-module Gocool
+module CoolGames
   module Tom
     class Base
       def base_url

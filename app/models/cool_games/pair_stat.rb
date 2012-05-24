@@ -1,18 +1,22 @@
-class PairStat < ActiveRecord::Base
-  include AbstractPlayerStat
-  
-  belongs_to :player, :class_name => "Player", :foreign_key => :player_id
-  belongs_to :opponent, :class_name => "Player", :foreign_key => :opponent_id
+module CoolGames
+  class PairStat < ActiveRecord::Base
+    include AbstractPlayerStat
 
-  default_scope :include => 'opponent'
+    set_table_name CoolGames::Engine.table_prefix + "pair_stats"
 
-  scope :opponent_name_like, lambda{ |name|
-    { :conditions => ["players.name like ?", name] }
-  }
+    belongs_to :player, :class_name => "Player", :foreign_key => :player_id
+    belongs_to :opponent, :class_name => "Player", :foreign_key => :opponent_id
 
-  scope :sort_by_opponent_name, :order => "players.name"
+    default_scope :include => 'opponent'
 
-  def self.find_or_create player_id, opponent_id
-    find_by_player_id_and_opponent_id(player_id, opponent_id) || create!(:player_id => player_id, :opponent_id => opponent_id)
+    scope :opponent_name_like, lambda{ |name|
+      { :conditions => ["players.name like ?", name] }
+    }
+
+    scope :sort_by_opponent_name, :order => "players.name"
+
+    def self.find_or_create player_id, opponent_id
+      find_by_player_id_and_opponent_id(player_id, opponent_id) || create!(:player_id => player_id, :opponent_id => opponent_id)
+    end
   end
 end

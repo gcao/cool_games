@@ -1,4 +1,4 @@
-module Gocool  
+module CoolGames
   class Email
     # http://tfletcher.com/lib/rfc822.rb
     #

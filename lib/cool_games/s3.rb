@@ -1,4 +1,4 @@
-module Gocool
+module CoolGames
   module S3    
     def self.wrap_bucket_name bucket_name
       case Rails.env

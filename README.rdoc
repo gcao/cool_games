@@ -1,6 +1,6 @@
 = cool_games
 
-Description goes here.
+A rails 3 engine for playing Weiqi
 
 == Contributing to cool_games
  

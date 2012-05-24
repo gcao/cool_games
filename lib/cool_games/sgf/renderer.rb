@@ -1,4 +1,4 @@
-module Gocool
+module CoolGames
   module SGF
     class Renderer
       def render_property prop_name, value

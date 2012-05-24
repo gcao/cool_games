@@ -17,7 +17,7 @@
 
   #gameContainer
 
-  = render :partial => "games/messages"
+  = render :partial => "messages"
 
   - if not @game.finished? and @game.current_user_is_player?
     .note
@@ -31,11 +31,11 @@
         此功能可广泛用于定式，中盘战斗，打劫以及官子定型等。
 
 - content_for :footer do
-  = render "shared/jsgameviewer"
+  = render "cool_games/shared/jsgameviewer"
   = javascript_include_tag "jquery.form"
 
   :javascript
-    var gameType  = #{@game.game_type == Game::DAOQI} ? jsGameViewer.DAOQI : jsGameViewer.WEIQI;
+    var gameType  = #{@game.daoqi?} ? jsGameViewer.DAOQI : jsGameViewer.WEIQI;
 
     function showMessage(message) {
       $('#message_container').show();
