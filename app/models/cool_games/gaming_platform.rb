@@ -2,7 +2,7 @@
 module CoolGames
   class GamingPlatform < ActiveRecord::Base
 
-    set_table_name CoolGames::Engine.table_prefix + "gaming_platforms"
+    set_table_name "gaming_platforms"
 
     ALL = 999
 

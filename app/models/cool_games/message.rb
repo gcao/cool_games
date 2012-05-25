@@ -1,7 +1,7 @@
 module CoolGames
   class Message < ActiveRecord::Base
 
-    set_table_name CoolGames::Engine.table_prefix + "messages"
+    set_table_name "messages"
 
     # Message Type
     REGULAR = 0

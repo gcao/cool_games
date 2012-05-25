@@ -3,7 +3,7 @@ module CoolGames
     #include ThreadGlobals
     include AASM
 
-    set_table_name CoolGames::Engine.table_prefix + "invitations"
+    set_table_name "invitations"
 
     belongs_to :inviter, :class_name => 'User', :foreign_key => 'inviter_id'
     belongs_to :game

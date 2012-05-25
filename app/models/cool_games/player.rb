@@ -2,7 +2,7 @@ module CoolGames
   class Player < ActiveRecord::Base
     belongs_to :gaming_platform
 
-    set_table_name CoolGames::Engine.table_prefix + "players"
+    set_table_name "players"
 
     has_one :stat, :class_name => 'PlayerStat', :dependent => :destroy
     has_many :opponents, :class_name => "PairStat", :dependent => :destroy

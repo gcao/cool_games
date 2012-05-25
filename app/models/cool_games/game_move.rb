@@ -1,7 +1,7 @@
 module CoolGames
   class GameMove < ActiveRecord::Base
 
-    set_table_name CoolGames::Engine.table_prefix + "game_moves"
+    set_table_name "game_moves"
 
     OCCUPIED = 1
     SUICIDE  = 2

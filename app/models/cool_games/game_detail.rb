@@ -1,7 +1,7 @@
 module CoolGames
   class GameDetail < ActiveRecord::Base
 
-    set_table_name CoolGames::Engine.table_prefix + "game_details"
+    set_table_name "game_details"
 
     belongs_to :game
     belongs_to :first_move, :class_name => 'GameMove', :foreign_key => 'first_move_id'

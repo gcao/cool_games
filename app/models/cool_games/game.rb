@@ -5,7 +5,7 @@ module CoolGames
     include GameInPlay
     include ThreadGlobals
 
-    set_table_name CoolGames::Engine.table_prefix + "games"
+    set_table_name "games"
 
     belongs_to :gaming_platform
     belongs_to :primary_source, :class_name => 'Upload', :foreign_key => 'primary_upload_id', :dependent => :destroy
