@@ -2,7 +2,7 @@ module CoolGames
   class PairStat < ActiveRecord::Base
     include AbstractPlayerStat
 
-    set_table_name "pair_stats"
+    set_table_name "cg_pair_stats"
 
     belongs_to :player, :class_name => "Player", :foreign_key => :player_id
     belongs_to :opponent, :class_name => "Player", :foreign_key => :opponent_id
