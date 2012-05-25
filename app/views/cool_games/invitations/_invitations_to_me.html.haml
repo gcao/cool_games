@@ -13,4 +13,4 @@
         %th.note_column=       t('invitations.note_label')
         %th.actions_column=    t('table.actions_label')
     %tbody.records
-      = render :partial => 'invitations/invitation_to_me', :collection => @invitations_to_me, :as => :invitation
+      = render :partial => 'invitation_to_me', :collection => @invitations_to_me, :as => :invitation

@@ -1,6 +1,5 @@
 module CoolGames
   class Invitation < ActiveRecord::Base
-    #include ThreadGlobals
     include AASM
 
     set_table_name "cg_invitations"
@@ -16,23 +15,15 @@ module CoolGames
     default_scope :order => "created_at DESC"
 
     scope :active, lambda {
-      {:conditions => ["invitations.state not in ('accepted', 'rejected', 'canceled', 'expired')"]}
+      {:conditions => ["state not in ('accepted', 'rejected', 'canceled', 'expired')"]}
     }
 
     scope :by_me, lambda { |user|
-      #if user = Thread.current[:user]
-        {:conditions => ["invitations.inviter_id = ?", user.id]}
-      #else
-      #  {:conditions => ["invitations.id < 0"]}
-      #end
+      {:conditions => ["inviter_id = ?", user.id]}
     }
 
     scope :to_me, lambda { |user|
-      #if user = Thread.current[:user]
-        {:conditions => ["invitations.invitees like ?", "%\"#{user.id}\":%"]}
-      #else
-      #  {:conditions => ["invitations.id < 0"]}
-      #end
+      {:conditions => ["invitees like ?", "%\"#{user.id}\":%"]}
     }
 
     aasm_column :state
