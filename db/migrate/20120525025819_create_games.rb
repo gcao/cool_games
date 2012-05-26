@@ -2,12 +2,12 @@ class CreateGames < ActiveRecord::Migration
   def up
     create_table :cg_games do |t|
       t.integer :game_type
-      t.string :status, :default => 'finished' # planned, finished, playing
+      t.string :state, :default => 'finished' # planned, finished, playing
       t.integer :rule # 1 - Chinese, 2 - Japanese, 3 - Korean, 4 - Ying
       t.string :rule_raw
       t.integer :board_size
       t.integer :handicap
-      t.integer :start_color
+      t.integer :start_side
       t.float :komi
       t.string :komi_raw
       t.string :result

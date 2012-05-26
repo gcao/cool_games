@@ -34,7 +34,7 @@ module CoolGames
 
         format.sgf do
           if @game.detail
-            render :text => Gocool::SGF::GameRenderer.new.render(@game)
+            render :text => CoolGames::Sgf::GameRenderer.new.render(@game)
           else
             redirect_to upload_url(@game.primary_source, :format => "sgf")
           end
@@ -43,7 +43,7 @@ module CoolGames
     end
 
     def next
-      if logged_in?
+      if current_user
         # Find waiting games, locate position of current game, return game immediately after current game, return first game if current is last
         games = Game.my_turn(current_player).not_finished.sort_by_last_move_time
         if games.size == 0
@@ -75,7 +75,7 @@ module CoolGames
     end
 
     def waiting
-      if logged_in?
+      if current_user
         if game = Game.my_turn(current_player).not_finished.first
           redirect_to game_url(game)
         elsif game = Game.by_player(current_player).not_finished.first
@@ -94,7 +94,7 @@ module CoolGames
     def play
       code, message = @game.play params
       if code == GameInPlay::OP_SUCCESS
-        render :text => "#{code}:#{Gocool::SGF::GameRenderer.new.render(@game)}"
+        render :text => "#{code}:#{CoolGames::Sgf::GameRenderer.new.render(@game)}"
       else
         render :text => "#{code}:#{message}"
       end

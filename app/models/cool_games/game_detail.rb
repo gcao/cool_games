@@ -13,7 +13,7 @@ module CoolGames
       move = GameMove.create!(:game_detail_id => id,
                               :move_no => 0, :x => -1, :y => -1, :color => 0, :played_at => Time.now,
                               :setup_points => handicaps)
-      self.formatted_moves = Gocool::SGF::NodeRenderer.new(:with_name => true).render(move)
+      self.formatted_moves = ::CoolGames::Sgf::NodeRenderer.new(:with_name => true).render(move)
       self.first_move_id = self.last_move_id = move.id
       self.last_move_time = Time.now
       save!

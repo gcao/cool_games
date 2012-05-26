@@ -1,5 +1,5 @@
 module CoolGames
-  module SGF
+  module Sgf
     class Renderer
       def render_property prop_name, value
         "#{prop_name}[#{value}]"

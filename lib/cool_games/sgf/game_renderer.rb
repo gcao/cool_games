@@ -1,5 +1,5 @@
 module CoolGames
-  module SGF
+  module Sgf
     class GameRenderer < Renderer
       def initialize options = {}
         @options = {}.merge options

@@ -15,17 +15,7 @@
  *= require cool_games/games
  */
 
-form.horizontal {
-  label {
-    display: inline-block;
-  }
-}
-
-form label {
-  text-align: right;
-  line-height: 30px;
-  vertical-align: middle;
-}
+@import "cool_games/partials/form";
 
 span.note {
   font-style: italic;

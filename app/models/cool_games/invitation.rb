@@ -99,12 +99,12 @@ module CoolGames
       self.class.handicap_str(handicap.to_i)
     end
 
-    def created_by_me?
-      current_user.id == self.inviter_id
+    def created_by_me? user
+      user.id == self.inviter_id
     end
 
-    def for_me?
-      logged_in? and JSON.parse(invitees)[current_user.id.to_s]
+    def for_me? user
+      JSON.parse(invitees)[user.id.to_s]
     end
 
     def create_game

@@ -72,7 +72,7 @@ module CoolGames
         detail.last_move_time = Time.now
         detail.change_turn
         detail.last_move_id = move.id
-        detail.formatted_moves += Gocool::SGF::NodeRenderer.new(:with_name => true).render(move)
+        detail.formatted_moves += CoolGames::Sgf::NodeRenderer.new(:with_name => true).render(move)
       end
 
       move.played_at = Time.now
@@ -190,7 +190,7 @@ module CoolGames
       detail.last_move = guess_move
       detail.last_move_time = Time.now
       detail.change_turn
-      detail.formatted_moves += Gocool::SGF::NodeRenderer.new(:with_name => true).render(guess_move)
+      detail.formatted_moves += CoolGames::Sgf::NodeRenderer.new(:with_name => true).render(guess_move)
       detail.save!
 
       self.moves += 1

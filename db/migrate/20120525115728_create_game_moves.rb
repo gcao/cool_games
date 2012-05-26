@@ -11,6 +11,7 @@ class CreateGameMoves < ActiveRecord::Migration
       t.integer :guess_player_id
       t.datetime :played_at
       t.integer :parent_id
+      t.string :setup_points
       t.text :serialized_board
       t.timestamps
     end
