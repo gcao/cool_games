@@ -250,7 +250,7 @@ module CoolGames
       elsif current_user_is_white?
         I18n.t('games.black_name')
       end
-      player.cancan.sub('PLAYER_NAME', current_user.email)
+      player.nil_or.sub('PLAYER_NAME', current_user.email)
     end
 
     def from_url?

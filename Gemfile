@@ -4,7 +4,6 @@ source "http://rubygems.org"
 gem "aasm", "3.0.5"
 gem "sgf_parser"
 gem "will_paginate", ">= 3.0.3"
-gem "cancan"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

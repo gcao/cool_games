@@ -9,7 +9,7 @@ module CoolGames
     end
 
     def current_player
-      current_user.cancan.player
+      current_user.nil_or.player
     end
   end
 end
