@@ -18,6 +18,6 @@ class CoolGames::BaseController < ApplicationController
   helper_method :page_params
 
   def current_player
-    current_user.nil_or.player
+    current_user.cancan.player
   end
 end
