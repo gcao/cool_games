@@ -126,19 +126,19 @@ module CoolGames
       PairStat.find_or_create(invitee.id, inviter.id)
 
       if start_side == INVITER_PLAY_FIRST or (start_side != INVITEE_PLAY_FIRST and rand(1000)%2 == 0) # inviter plays first
-        game.black_id = inviter.player.id
-        game.black_name = inviter.player.name
-        game.black_rank = inviter.player.rank
-        game.white_id = invitee.player.id
-        game.white_name = invitee.player.name
-        game.white_rank = invitee.player.rank
+        game.black_id = inviter.id
+        game.black_name = inviter.name
+        game.black_rank = inviter.rank
+        game.white_id = invitee.id
+        game.white_name = invitee.name
+        game.white_rank = invitee.rank
       else # invitee plays first
-        game.black_id = invitee.player.id
-        game.black_name = invitee.player.name
-        game.black_rank = invitee.player.rank
-        game.white_id = inviter.player.id
-        game.white_name = inviter.player.name
-        game.white_rank = inviter.player.rank
+        game.black_id = invitee.id
+        game.black_name = invitee.name
+        game.black_rank = invitee.rank
+        game.white_id = inviter.id
+        game.white_name = inviter.name
+        game.white_rank = inviter.rank
       end
       game.start
       game.save!

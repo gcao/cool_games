@@ -9,16 +9,16 @@ module CoolGames
 
     scope :on_platform, lambda {|platform|
       if platform.blank?
-        {:conditions => ["players.gaming_platform_id is null"]}
+        {:conditions => ["gaming_platform_id is null"]}
       elsif platform.is_a? GamingPlatform
-        {:conditions => ["players.gaming_platform_id = ?", platform.id]}
+        {:conditions => ["gaming_platform_id = ?", platform.id]}
       elsif platform.to_i == GamingPlatform::ALL
         {}
       else
-        {:conditions => ["players.gaming_platform_id = ?", platform]}
+        {:conditions => ["gaming_platform_id = ?", platform]}
       end
     }
-    scope :name_like, lambda {|name| {:conditions => ["players.name like ?", name.gsub('*', '%')]} }
+    scope :name_like, lambda {|name| {:conditions => ["name like ?", name.gsub('*', '%')]} }
 
     scope :with_stat, :include => :stat
     scope :include, lambda {|*associations| {:include => associations} }

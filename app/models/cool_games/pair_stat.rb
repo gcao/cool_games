@@ -10,10 +10,10 @@ module CoolGames
     default_scope :include => 'opponent'
 
     scope :opponent_name_like, lambda{ |name|
-      { :conditions => ["players.name like ?", name] }
+      { :conditions => ["name like ?", name] }
     }
 
-    scope :sort_by_opponent_name, :order => "players.name"
+    scope :sort_by_opponent_name, joins(:opponent).order(:name)
 
     def self.find_or_create player_id, opponent_id
       find_by_player_id_and_opponent_id(player_id, opponent_id) || create!(:player_id => player_id, :opponent_id => opponent_id)
