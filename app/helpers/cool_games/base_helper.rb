@@ -58,6 +58,12 @@ module CoolGames
       end
     end
 
+    def page_navigation_links(pages, options = {})
+      options = { :class => 'pagination', :inner_window => 2, :outer_window => 0, :renderer => BootstrapLinkRenderer,
+        :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe}.merge!(options)
+      will_paginate(pages, options)
+    end
+
     private
 
     def player_html name, url, is_winner

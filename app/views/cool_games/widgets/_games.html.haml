@@ -1,9 +1,8 @@
 - if games.blank?
   = t("games_widget.game_not_found")
 - else
-  .games_widget.active-scaffold.blue-theme
-    .digg_pagination=raw will_paginate(games, :previous_label => t('link.pagination.prev'), :next_label => t('link.pagination.next'), :param_name => 'games_page')
-
+  .games_widget
+    = page_navigation_links(games, :param_name => 'games_page')
     %table.games_table.table
       %thead
         %tr.header
