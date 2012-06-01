@@ -4,7 +4,7 @@ module CoolGames
 
     set_table_name "cg_invitations"
 
-    belongs_to :inviter, :class_name => 'User', :foreign_key => 'inviter_id'
+    belongs_to :inviter, :class_name => 'CoolGames::Player', :foreign_key => 'inviter_id'
     belongs_to :game
 
     attr_accessor :invitee
@@ -18,12 +18,12 @@ module CoolGames
       {:conditions => ["state not in ('accepted', 'rejected', 'canceled', 'expired')"]}
     }
 
-    scope :by_me, lambda { |user|
-      {:conditions => ["inviter_id = ?", user.id]}
+    scope :by_me, lambda { |player|
+      {:conditions => ["inviter_id = ?", player.id]}
     }
 
-    scope :to_me, lambda { |user|
-      {:conditions => ["invitees like ?", "%\"#{user.id}\":%"]}
+    scope :to_me, lambda { |player|
+      {:conditions => ["invitees like ?", "%\"#{player.id}\":%"]}
     }
 
     aasm_column :state
@@ -56,9 +56,9 @@ module CoolGames
       invitees.split(/[ ,]+/).each do |invitee|
         invitee.strip!
 
-        user = User.find_by_email invitee
-        if user
-          result[user.id] = invitee
+        player = Player.find_by_name invitee
+        if player
+          result[player.id] = invitee
         else
           unrecognized << invitee
         end
@@ -99,12 +99,12 @@ module CoolGames
       self.class.handicap_str(handicap.to_i)
     end
 
-    def created_by_me? user
-      user.id == self.inviter_id
+    def created_by_me? player
+      player.id == self.inviter_id
     end
 
-    def for_me? user
-      JSON.parse(invitees)[user.id.to_s]
+    def for_me? player
+      JSON.parse(invitees)[player.id.to_s]
     end
 
     def create_game
@@ -127,22 +127,18 @@ module CoolGames
 
       if start_side == INVITER_PLAY_FIRST or (start_side != INVITEE_PLAY_FIRST and rand(1000)%2 == 0) # inviter plays first
         game.black_id = inviter.player.id
-        game.black_name = inviter.email
-        #game.black_name = inviter.player.name
-        #game.black_rank = inviter.player.rank
+        game.black_name = inviter.player.name
+        game.black_rank = inviter.player.rank
         game.white_id = invitee.player.id
-        game.white_name = invitee.email
-        #game.white_name = invitee.player.name
-        #game.white_rank = invitee.player.rank
+        game.white_name = invitee.player.name
+        game.white_rank = invitee.player.rank
       else # invitee plays first
         game.black_id = invitee.player.id
-        game.black_name = invitee.email
-        #game.black_name = invitee.player.name
-        #game.black_rank = invitee.player.rank
+        game.black_name = invitee.player.name
+        game.black_rank = invitee.player.rank
         game.white_id = inviter.player.id
-        game.white_name = inviter.email
-        #game.white_name = inviter.player.name
-        #game.white_rank = inviter.player.rank
+        game.white_name = inviter.player.name
+        game.white_rank = inviter.player.rank
       end
       game.start
       game.save!
@@ -153,22 +149,22 @@ module CoolGames
       GameDetail.create!(:game_id => game.id, :whose_turn => game.start_side, :formatted_moves => "")
 
       #Discuz::PrivateMessage.send_message invitee, inviter, "",
-      #                                    I18n.t('invitations.accept_invitation_body').sub('USERNAME', invitee.username).sub("GAME_URL", "#{ENV['BASE_URL']}/app/games/#{game.id}")
+      #                                    I18n.t('invitations.accept_invitation_body').sub('USERNAME', invitee.name).sub("GAME_URL", "#{ENV['BASE_URL']}/app/games/#{game.id}")
 
       game
     end
 
     def send_reject_message
-      #invitee = current_user
+      #invitee = current_player
       #Discuz::PrivateMessage.send_message invitee, inviter, "",
-      #                                    I18n.t('invitations.reject_invitation_body').sub('USERNAME', invitee.username).sub("INVITATION_URL", "#{ENV['BASE_URL']}/app/invitations/#{id}")
+      #                                    I18n.t('invitations.reject_invitation_body').sub('USERNAME', invitee.name).sub("INVITATION_URL", "#{ENV['BASE_URL']}/app/invitations/#{id}")
     end
 
     def send_invitation_message
       #JSON.parse(invitees).keys.each do |invitee_id|
-      #  invitee = User.find invitee_id
+      #  invitee = Player.find invitee_id
       #  Discuz::PrivateMessage.send_message inviter, invitee, "",
-      #                                      I18n.t('invitations.invitation_body').sub('USERNAME', inviter.username).
+      #                                      I18n.t('invitations.invitation_body').sub('USERNAME', inviter.name).
       #                                              gsub("INVITATION_URL", "#{ENV['BASE_URL']}/app/invitations/#{id}").
       #                                              sub('GAME_TYPE', game_type_str)
       #end

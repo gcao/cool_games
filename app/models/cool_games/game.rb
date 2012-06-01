@@ -245,12 +245,14 @@ module CoolGames
     end
 
     def current_player_str
+      return unless current_player
+
       player = if current_user_is_black?
         I18n.t('games.black_name')
       elsif current_user_is_white?
         I18n.t('games.black_name')
       end
-      player.nil_or.sub('PLAYER_NAME', current_user.email)
+      player.nil_or.sub('PLAYER_NAME', current_player.name)
     end
 
     def from_url?

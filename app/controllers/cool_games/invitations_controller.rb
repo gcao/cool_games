@@ -3,8 +3,8 @@ module CoolGames
     before_filter :authenticate_user!
 
     def index
-      @invitations_to_me = Invitation.active.to_me(current_user)
-      @invitations_by_me = Invitation.active.by_me(current_user)
+      @invitations_to_me = Invitation.active.to_me(current_player)
+      @invitations_by_me = Invitation.active.by_me(current_player)
     end
 
     def new
@@ -20,7 +20,7 @@ module CoolGames
 
       invitees, unrecognized = Invitation.parse_invitees(@invitees)
 
-      attrs = params[:invitation].merge(:invitees => invitees.to_json, :inviter_id => @current_user.id, :game_type => @game_type)
+      attrs = params[:invitation].merge(:invitees => invitees.to_json, :inviter_id => current_player.id, :game_type => @game_type)
       @invitation = Invitation.new(attrs)
 
       if unrecognized.blank? and @invitation.valid?
@@ -64,7 +64,7 @@ module CoolGames
       invitation = Invitation.find(params[:id])
       if invitation
         if invitation.state == 'new'
-          invitation.invitee = current_user
+          invitation.invitee = current_player
           invitation.accept
           invitation.save!
           redirect_to game_url(invitation.game)
